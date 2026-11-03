@@ -1,18 +1,20 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/scatch-ecommerce');
 
-const userSchema =  mongoose.Schema({
-    fullname : String,
+const userSchema = mongoose.Schema({
+    fullname: {
+        type: String,
+        minLength: 3,
+        trim: true
+    },
     email: String,
     password: String,
-    cart: {
-        type: Array,
-         default: []
-    },
-    isAdmin: Boolean,
+    cart: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+    }],
     orders: {
         type: Array,
-         default: []
+        default: []
     },
     contact: Number,
     picture: String

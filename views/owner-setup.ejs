@@ -1,0 +1,28 @@
+<%- include('./partials/header') %>
+<div class="min-h-screen flex items-center justify-center px-6">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow">
+        <h1 class="text-3xl font-semibold mb-2">Create First Admin</h1>
+        <p class="text-gray-600 mb-6">Local development setup only. This page is disabled after the first admin is created.</p>
+
+        <% if (error && error.length) { %>
+            <div class="mb-4 rounded bg-red-100 text-red-700 p-3"><%= error %></div>
+        <% } %>
+
+        <form action="/owners/setup" method="post" autocomplete="off">
+            <label class="block mb-1" for="fullname">Full name</label>
+            <input id="fullname" class="block bg-zinc-100 w-full px-3 py-2 border rounded-md mb-4"
+                   type="text" name="fullname" required minlength="3">
+
+            <label class="block mb-1" for="email">Email</label>
+            <input id="email" class="block bg-zinc-100 w-full px-3 py-2 border rounded-md mb-4"
+                   type="email" name="email" required autocomplete="username">
+
+            <label class="block mb-1" for="password">Password (minimum 8 characters)</label>
+            <input id="password" class="block bg-zinc-100 w-full px-3 py-2 border rounded-md mb-5"
+                   type="password" name="password" required minlength="8" autocomplete="new-password">
+
+            <button class="w-full rounded-md py-3 bg-blue-600 text-white" type="submit">Create Admin</button>
+        </form>
+    </div>
+</div>
+<%- include('./partials/footer') %>

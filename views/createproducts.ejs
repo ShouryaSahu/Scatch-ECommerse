@@ -1,0 +1,53 @@
+<%- include('./partials/header') %>
+
+<div class="min-h-screen flex flex-col">
+    <div class="container px-6 md:px-10 py-10 md:py-20 flex-grow">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div>
+                <h1 class="text-3xl font-bold">Scatch Admin</h1>
+                <p class="text-gray-600">Signed in as <%= owner.email %></p>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a class="text-blue-600 underline" href="/owners/products">All Products</a>
+                <form action="/owners/logout" method="post">
+                    <button class="rounded bg-zinc-800 text-white px-4 py-2" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <% if (success && success.length) { %>
+            <div class="mb-5 p-3 rounded bg-green-100 text-green-800"><%= success %></div>
+        <% } %>
+        <% if (error && error.length) { %>
+            <div class="mb-5 p-3 rounded bg-red-100 text-red-800"><%= error %></div>
+        <% } %>
+
+        <main class="max-w-3xl bg-white p-6 md:p-8 shadow rounded">
+            <h2 class="text-xl font-bold mb-5">Create New Product</h2>
+            <form autocomplete="off" action="/products/create" method="post" enctype="multipart/form-data">
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold mb-3">Product Details</h3>
+                    <label class="block mb-2 font-medium" for="image">Product Image</label>
+                    <input id="image" name="image" type="file" accept="image/*" required class="py-2 px-4 rounded mb-4">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input name="name" type="text" placeholder="Product Name" required class="border p-2 rounded w-full">
+                        <input name="price" type="number" min="0.01" step="0.01" placeholder="Product Price" required class="border p-2 rounded w-full">
+                        <input name="discount" type="number" min="0" step="0.01" value="0" placeholder="Discount Amount" class="border p-2 rounded w-full">
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <h3 class="text-lg font-semibold mb-3">Panel Details</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input name="bgcolor" type="text" value="#f3f4f6" placeholder="Background Color (e.g. #f3f4f6)" class="border p-2 rounded w-full">
+                        <input name="panelcolor" type="text" value="#111827" placeholder="Panel Color (e.g. #111827)" class="border p-2 rounded w-full">
+                        <input name="textcolor" type="text" value="#ffffff" placeholder="Text Color (e.g. #ffffff)" class="border p-2 rounded w-full">
+                    </div>
+                </div>
+                <button class="px-5 py-3 rounded bg-blue-600 text-white" type="submit">Create New Product</button>
+            </form>
+        </main>
+    </div>
+</div>
+<%- include('./partials/footer') %>
