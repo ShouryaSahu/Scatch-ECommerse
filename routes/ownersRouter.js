@@ -148,6 +148,27 @@ router.get('/products', isOwnerLoggedIn, async (req, res, next) => {
     }
 });
 
+
+// Delete Product
+router.post('/products/:id/delete', isOwnerLoggedIn, async (req, res, next) => {
+    try {
+        const deletedProduct = await productModel.findByIdAndDelete(req.params.id);
+
+        if (!deletedProduct) {
+            req.flash('error', 'Product not found.');
+        } else {
+            req.flash('success', 'Product deleted successfully.');
+        }
+
+        return res.redirect('/owners/products');
+
+    } catch (err) {
+        return next(err);
+    }
+});
+
+
+
 // Admin Logout
 router.post('/logout', isOwnerLoggedIn, (req, res) => {
 
