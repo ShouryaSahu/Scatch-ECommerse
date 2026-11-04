@@ -134,19 +134,23 @@ router.get('/admin', isOwnerLoggedIn, (req, res) => {
 });
 
 // All Products (Admin)
+
 router.get('/products', isOwnerLoggedIn, async (req, res, next) => {
     try {
         const products = await productModel.find().sort({ _id: -1 });
 
         return res.render('admin', {
             products,
-            owner: req.owner
+            owner: req.owner,
+            success: req.flash('success'),
+            error: req.flash('error')
         });
 
     } catch (err) {
         return next(err);
     }
 });
+
 
 
 // Delete Product
